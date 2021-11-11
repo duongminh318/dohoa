@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+var preX;
+var preY;
+var paint;
+var canvas;
+var context;
+ 
+$(function(){
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+ 
+    $('#canvas').mousedown(function(e){
+        preX = e.pageX - this.offsetLeft;
+        preY = e.pageY - this.offsetTop;
+ 
+        paint = true;
+    });
+    $('#canvas').mousemove(function(e){
+      if(paint){
+        var x = e.pageX - this.offsetLeft;
+        var y = e.pageY - this.offsetTop;
+       
+    
+        context.strokeStyle = "green";
+        context.strokeRect(preX,preY,3,4);
+        context.stroke();
+        preX = x;
+        preY = y;
+      }
+    });
+    $('#canvas').mouseenter(function(e){
+        if(paint)
+        {
+        preX = e.pageX - this.offsetLeft;
+        preY = e.pageY - this.offsetTop;
+        }
+    });
+    $("#canvas").mouseup(function(){
+        paint = false;
+    });
+    $('#canvas').mouseleave(function(e){
+        paint = false;
+    });
+ 
+});
+ 
+</script>
+</head>
+<body>
+   <canvas id="canvas" width="500px" height="500px" style="border: 1px solid gray;"></canvas>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+ 
+(function( $ ) {
+ 
+    var preX;
+    var preY;
+    var tool;    // pen, line
+    var canvas;
+    var context;
+    var imageData;
+    var paint;
+ 
+  $.fn.makeDrawable = function() {
+ 
+    canvas = this[0];
+    if( !$(canvas).is("canvas") )
+        throw "The target element must be a canvas";
+ 
+    context = canvas.getContext("2d");
+ 
+    $(canvas).mousedown(function(e){
+        preX = e.pageX - canvas.offsetLeft;
+        preY = e.pageY - canvas.offsetTop;
+        paint = true;
+        if(tool=="line")
+        {
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        }
+    });
+    $(canvas).mousemove(function(e){
+        if(paint)
+        {
+            var x = e.pageX - canvas.offsetLeft;
+            var y = e.pageY - canvas.offsetTop;
+ 
+            if(tool=="pen")
+            {
+                context.moveTo(preX,preY);
+                context.lineTo(x,y);
+                context.stroke();
+ 
+                preX = x;
+                preY = y;
+            }
+            else if(tool=="line")
+            {
+                canvas.width=canvas.width; // clear canvas content
+                context.putImageData(imageData,0,0);
+ 
+                context.moveTo(preX,preY);
+                context.lineTo(x,y);
+                context.stroke();
+            }
+ 
+        }
+    });
+ 
+    $(canvas).mouseup(function(e){
+        if(tool=="line")
+        {
+            var x = e.pageX - canvas.offsetLeft;
+            var y = e.pageY - canvas.offsetTop;
+ 
+            context.moveTo(preX,preY);
+            context.lineTo(x,y);
+            context.stroke();
+        }
+        paint = false;
+    });
+    $(canvas).mouseleave(function(e){
+        paint = false;
+    });
+ 
+    return $(canvas);
+  };
+ 
+  $.fn.setTool = function(newTool) {
+    tool=newTool;
+    return $(canvas);
+  }
+ $.fn.clear = function() {
+    canvas.width=canvas.width;
+    return $(canvas);
+  }
+})( jQuery );
+ 
+$(function(){
+ 
+    $("#canvas").makeDrawable();
+    $("#button1").click(function(){
+        $("#canvas").clear();
+    });
+ 
+    $("#pen").change(function(){
+        if(this.value)
+            $("#canvas").setTool("pen");
+    });
+    $("#line").change(function(){
+        if(this.value)
+            $("#canvas").setTool("line");
+    });
+ 
+    $("#canvas").setTool("pen");
+});
+ 
+</script>
+</head>
+<body>
+    <div>
+    <button id="button1">Clear</button>
+    <input name="tool" type="radio" id="pen" checked="true">Pen</input>
+    <input name="tool" type="radio" id="line">Line</input>
+    </div>
+   <canvas id="canvas" width="500px" height="500px" style="border: 1px solid gray;"></canvas>
+</body>
+</html>
