@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head runat="server">
+        <title></title>
+        <style type="text/css">
+            body {
+                margin: 0 auto;
+                padding : 0;
+            }
+        </style>
+        <!-- Jquery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                //Canvas stuff
+                var myCanvas = $("#myCanvas")[0];
+                var context = myCanvas.getContext("2d");
+                var width = $("#myCanvas").width();
+                var height = $("#myCanvas").height();
+     
+                var widthUnit = 15;
+                var huongDi;
+                var food;
+                var score;
+                var ran;
+           
+               function start() {
+                    huongDi = "right";
+                    createSnake();
+                    createFood();
+                    score = 0;
+                   
+                    if (typeof game_loop != "undefined") clearInterval(game_loop);
+                    game_loop = setInterval(paintSnake, 70);
+                }
+                start();
+ 
+               function createSnake() {
+                    var snakeSize = 4;
+                    ran = [];
+                    for (var m = 0; m<snakeSize-1;m++) {
+                        ran.push({ x: 0, y: 20 });
+                    }
+                }
+ 
+                function createFood() {
+                    food = {
+                        x: Math.round(Math.random() * (width - widthUnit) / widthUnit),
+                        y: Math.round(Math.random() * (height - widthUnit) / widthUnit),
+                    };
+                 }
+ 
+                function paintSnake() {
+                    context.fillStyle = "#c0f0aa";
+                    context.fillRect(0, 0, width, height);
+                    context.strokeStyle = "0000ff";
+                    context.strokeRect(0, 0, width, height);
+     
+                    var headX = ran[0].x;
+                    var headY = ran[0].y;
+     
+                    if (huongDi == "right") headX++;
+                    else if (huongDi == "left") headX--;
+                    else if (huongDi == "down") headY++;
+                    else if (huongDi == "up") headY--;
+                   
+     
+                     if (headX == -1 || headX == width / widthUnit || headY == -1 ||
+                        headY == height / widthUnit || checkCollision(headX, headY, ran)) {
+                         start();
+                         return;
+                    }
+     
+                     if (headX == food.x && headY == food.y) {
+                        var snake_tail = { x: headX, y: headY };
+                        score++;
+                         createFood();
+                    }
+                    else {
+                        var snake_tail = ran.pop();
+                        snake_tail.x = headX; snake_tail.y = headY;
+                    }
+     
+                    ran.unshift(snake_tail);
+     
+                    for (var i = 0; i < ran.length; i++) {
+                        var k = ran[i];
+                    
+                        paintCell(k.x, k.y);
+                    }
+     
+                   
+                    paintCell(food.x, food.y);
+                   
+                    var score_text = "Score: " + score;
+                    context.fillText(score_text, width-50, 20);
+                }
+ 
+               function paintCell(x, y) {
+                    context.fillStyle = "orange";
+                    context.fillRect(x * widthUnit, y * widthUnit, widthUnit, widthUnit);
+                    context.strokeStyle = "red";
+                    context.strokeRect(x * widthUnit, y * widthUnit, widthUnit, widthUnit);
+                }
+     
+                function checkCollision(x, y, array) {
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i].x == x && array[i].y == y)
+                            return true;
+                    }
+                    return false;
+                }
+     
+              $(document).keydown(function (e) {
+                    var keyInput = e.which;
+                    if (keyInput == "40" && huongDi != "up") huongDi = "down";
+                    else if (keyInput == "39" && huongDi != "left") huongDi = "right";
+                    else if (keyInput == "38" && huongDi != "down") huongDi = "up";
+                    else if (keyInput == "37" && huongDi != "right") huongDi = "left";
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <div>
+                <canvas id="myCanvas" width="550" height="600"></canvas>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<head>
+ 
+<script src="ball.js"></script>
+<script>
+ 
+var _canvas;
+var _context;
+var _ball;
+var _balls = [];
+var _counter = 0;
+function draw(){
+ 
+    _context.clearRect(0,0,_canvas.width,_canvas.height);
+ 
+    for(var i = 0; i < _balls.length; i++){
+        _balls[i].draw(_context,(i+1)/10);
+    }
+    _ball.draw(_context);
+}
+function update(){
+    _counter++;
+    if(_counter == 5){
+        traceBall(_ball);
+        _counter = 0;
+    }
+    draw();
+    _ball.move();
+    _ball.checkCollision();
+ 
+}
+function traceBall(ball){
+    var b = new Ball;
+    b.cx = ball.cx;
+    b.cy = ball.cy;
+ 
+    _balls.push(b);
+    if(_balls.length>10)
+        _balls.splice(0,1);
+}
+window.onload = function(){
+ 
+    var interval = 10;
+    _canvas = document.getElementById("canvas");
+    _context = _canvas.getContext("2d");
+    _ball = new Ball(_canvas.width,_canvas.height);
+ 
+    window.setInterval(function(){
+        update();
+    },interval);
+ 
+}
+</script>
+</head>
+<body>
+   <canvas id="canvas" width="400px" height="300px" style="border: 1px solid gray;"></canvas>
+</body>
+</html>

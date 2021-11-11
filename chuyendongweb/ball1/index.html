@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset= "UTF-8">
+	<title>Title</title>
+<!-- 	<script src="ball.js"></script> -->
+	<script src="ball_1.js"></script>
+	<script>
+		var _canvas;
+		var _context;
+		var _ball;
+		function draw(){
+			_context.clearRect(0,0,_canvas.width,_canvas.height);
+			_ball.draw(_context);
+		}
+		function update(){
+			_ball.move();
+			_ball.checkCollision();
+			draw();
+		}
+		window.onload = function(){
+			var interval = 10;
+			_canvas = document.getElementById("canvas");
+			_context = _canvas.getContext ("2d");
+			_ball = new Ball(_canvas.width,_canvas.height) ;
+			setInterval("update()", interval);
+        }
+	</script>
+</head>
+<body>
+	<canvas id="canvas" width="400px" height="300px" style="border: 1px solid gray;">
+</body>
+</html>
