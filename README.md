@@ -4,4 +4,4 @@
 ![alt](http://edu.keyframe.vn/wp-content/uploads/2018/05/hocky-graphic-design-720-1030x580.jpg)
 ![alt](https://user-images.githubusercontent.com/78397137/219260015-00d2fde1-00f9-438c-93a1-09bc776d5031.png)
 chèn ảnh bằng thẻ html
-<img src="https://..." alt="http://edu.keyframe.vn/wp-content/uploads/2018/05/hocky-graphic-design-720-1030x580.jpg" width="250" />
+<img src="http://edu.keyframe.vn/wp-content/uploads/2018/05/hocky-graphic-design-720-1030x580.jpg" alt="" width="250" />
