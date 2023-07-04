@@ -6,7 +6,4 @@
 chèn ảnh bằng thẻ html
 <img src="http://edu.keyframe.vn/wp-content/uploads/2018/05/hocky-graphic-design-720-1030x580.jpg" alt="" width="250" />
 
-<video src="document/video_play.mp4" controls autoplay>
-		<!-- Nội dung dự phòng nếu trình duyệt không hỗ trợ video -->
-		<p>Trình duyệt của bạn không hỗ trợ video.</p>
-	</video>
+[![Alt Text](https://img.youtube.com/vi/5BzDX5n4RuA/0.jpg)](https://www.youtube.com/watch?v=5BzDX5n4RuA)
