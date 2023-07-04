@@ -5,3 +5,8 @@
 ![alt](https://user-images.githubusercontent.com/78397137/219260015-00d2fde1-00f9-438c-93a1-09bc776d5031.png)
 chèn ảnh bằng thẻ html
 <img src="http://edu.keyframe.vn/wp-content/uploads/2018/05/hocky-graphic-design-720-1030x580.jpg" alt="" width="250" />
+
+<video src="document/video_play.mp4" controls autoplay>
+		<!-- Nội dung dự phòng nếu trình duyệt không hỗ trợ video -->
+		<p>Trình duyệt của bạn không hỗ trợ video.</p>
+	</video>
