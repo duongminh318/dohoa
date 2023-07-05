@@ -1,5 +1,7 @@
 # dohoa
-<!-- - bài tập đồ hoạ, sử dụng canva, html5,javascript, một số app ide hõ trợ vẽ hình bằng code -->
+=== bài tập đồ hoạ, sử dụng canva, html5,javascript,
+chạy trên nền web bao gồm: 
+
 
 <p align="center">
   <img src="pic/bongchuyendong2.png" width=600><br/>
@@ -20,3 +22,8 @@
 # Rắn Săn Mồi
 [![Alt Text](https://img.youtube.com/vi/5BzDX5n4RuA/0.jpg)](https://www.youtube.com/watch?v=5BzDX5n4RuA)
 
+** technology used
+  - html5
+  - css
+  - javascript
+  - canva
